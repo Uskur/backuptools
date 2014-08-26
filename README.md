@@ -1,5 +1,8 @@
-mysqlbackup
+backuptools
 ===========
+
+mysqlbackup
+-----------
 
 Backup every table in every database into individual compressed files.
 
@@ -15,3 +18,6 @@ A MySQL user like so is ideal:
 GRANT SELECT, RELOAD, FILE, SHOW DATABASES, SUPER, LOCK TABLES, SHOW VIEW ON *.* TO '[YOURUSER]'@'localhost' IDENTIFIED BY PASSWORD '[YOURPASS]';
 ```
 
+duplicitybackup
+---------------
+Backup to Google Cloud Storage
