@@ -14,6 +14,12 @@ export PASSPHRASE=[YOURPASSPHRASE]
 if [[ $Action == "status" ]]
 then
         duplicity collection-status gs://$BucketName$PathToBackup
+elif [[ $Action == "du" ]]
+then
+        /usr/local/bin/gsutil/gsutil du -ch gs://$BucketName$PathToBackup
+elif [[ $Action == "files" ]]
+then
+        duplicity list-current-files gs://$BucketName$PathToBackup
 else
         duplicity remove-older-than 3M gs://$BucketName$PathToBackup
         duplicity --full-if-older-than 1M $PathToBackup gs://$BucketName$PathToBackup
