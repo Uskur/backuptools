@@ -20,8 +20,12 @@ then
 elif [[ $Action == "files" ]]
 then
         duplicity list-current-files gs://$BucketName$PathToBackup
+elif [[ $Action == "clean" ]]
+then
+        duplicity --force remove-older-than 3M gs://$BucketName$PathToBackup
+        duplicity --force cleanup gs://$BucketName$PathToBackup
 else
-        duplicity remove-older-than 3M gs://$BucketName$PathToBackup
+        duplicity --force remove-older-than 3M gs://$BucketName$PathToBackup
         duplicity --full-if-older-than 1M $PathToBackup gs://$BucketName$PathToBackup
 fi
 unset PASSPHRASE
