@@ -21,3 +21,9 @@ GRANT SELECT, RELOAD, FILE, SHOW DATABASES, SUPER, LOCK TABLES, SHOW VIEW ON *.*
 duplicitybackup
 ---------------
 Backup to Google Cloud Storage
+
+to restore:
+
+```
+duplicity restore --time "[YYYY-MM-DD]T[HH:MM:SS]" gs://[BUCKET]/[PATH] --file-to-restore [SOURCE] ./[TARGET]
+```
