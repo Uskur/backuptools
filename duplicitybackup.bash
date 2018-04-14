@@ -7,25 +7,25 @@ if [[ $buckets =~ .*$BucketName.* ]]
 then
         echo "Bucket exists"
 else
-        /usr/local/bin/gsutil/gsutil mb -c DRA -l EU gs://$BucketName
+        /usr/local/bin/gsutil/gsutil mb -c nearline -l eu gs://$BucketName
 fi
 
 export PASSPHRASE=[YOURPASSPHRASE]
 if [[ $Action == "status" ]]
 then
-        duplicity collection-status gs://$BucketName$PathToBackup
+        duplicity --archive-dir /root/.cache/duplicity/ collection-status gs://$BucketName$PathToBackup
 elif [[ $Action == "du" ]]
 then
         /usr/local/bin/gsutil/gsutil du -ch gs://$BucketName$PathToBackup
 elif [[ $Action == "files" ]]
 then
-        duplicity list-current-files gs://$BucketName$PathToBackup
+        duplicity --archive-dir /root/.cache/duplicity/ list-current-files gs://$BucketName$PathToBackup
 elif [[ $Action == "clean" ]]
 then
-        duplicity --force remove-older-than 3M gs://$BucketName$PathToBackup
-        duplicity --force cleanup gs://$BucketName$PathToBackup
+        duplicity --archive-dir /root/.cache/duplicity/ --force remove-older-than 3M gs://$BucketName$PathToBackup
+        duplicity --archive-dir /root/.cache/duplicity/ --force cleanup gs://$BucketName$PathToBackup
 else
-        duplicity --force remove-older-than 3M gs://$BucketName$PathToBackup
-        duplicity --full-if-older-than 1M $PathToBackup gs://$BucketName$PathToBackup
+        duplicity --archive-dir /root/.cache/duplicity/ --force remove-older-than 3M gs://$BucketName$PathToBackup
+        duplicity --archive-dir /root/.cache/duplicity/ --full-if-older-than 1M $PathToBackup gs://$BucketName$PathToBackup
 fi
 unset PASSPHRASE
